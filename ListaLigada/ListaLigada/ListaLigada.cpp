@@ -1,4 +1,4 @@
-
+// Larissa Fernanda dos Santos larissa.santos123@fatec.sp.gov.br
 #include <iostream>
 using namespace std;
 
@@ -145,11 +145,75 @@ void inserirElemento()
 
 void excluirElemento()
 {
-	
+	NO* pos = NULL;
+	int num;
+	cout << "Digite um numero para excluir: ";
+	cin >> num;
+	pos = posicaoElemento(num);
+	if (pos == NULL) {
+		cout << "Elemento nao encontrado" << endl;
+	}
+	else {
+		if (pos == primeiro) {
+			primeiro = primeiro->prox;
+		}
+		else {
+			NO* aux = primeiro;
+			NO* ante = aux;
+			while (aux != NULL) {
+				if (pos->valor == aux->valor) {
+					if (aux == primeiro->prox) {
+						primeiro->prox = aux->prox;
+						free(pos);
+						break;
+					}
+					else {
+						ante->prox = aux->prox;
+						free(pos);
+						break;
+					}
+				}
+				else {
+					ante = aux;
+					aux = aux->prox;
+				}
+			}
+		}
+	}
 }
+
+	
+
 
 void buscarElemento()
 {
+	NO* pos = NULL;
+	int num;
+	cout << "Digite um numero para pesquisar: ";
+	cin >> num;
+	pos = posicaoElemento(num);
+	if (pos == NULL) {
+		cout << "Elemento nao encontrado" << endl;
+	}
+	else {
+		cout << "Elemento encontrado" << endl;
+	}
+}
+
+
+// retorna um ponteiro para o elemento buscado
+// ou NULL se o elemento não estiver na lista
+NO* posicaoElemento(int numero)
+{
+	NO* aux = primeiro;
+	while (aux != NULL) {
+		if (aux->valor == numero)
+		{
+			break;
+		}
+		aux = aux->prox;
+	}
+	return aux;
 	
 }
 
